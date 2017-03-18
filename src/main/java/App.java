@@ -1,14 +1,15 @@
 import static spark.Spark.*;
+import net.webservicex.*;
 
 public class App {
     public static void main(String[] args) {
         path("/api", () -> {
+            
             get("/hello", (req, res) -> {
-                return "Hello World";
-            });
-            get("/goodbye", (req, res) -> {
-                return "Goodbye World";
+                GlobalWeather ss = new GlobalWeather();
+                GlobalWeatherSoap port = ss.getGlobalWeatherSoap12();  
+                return port.getCitiesByCountry("Norway");
             });
         });
-    };
+    }
 }
